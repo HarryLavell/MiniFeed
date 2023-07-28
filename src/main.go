@@ -1,14 +1,15 @@
 package main
 
 import (
-	"io"
+	"html/template"
 	"log"
 	"net/http"
 )
 
 func main() {
 	handler := func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w, "Hello, world!")
+		template := template.Must(template.ParseFiles("index.html"))
+		template.Execute(w, nil)
 	}
 
 	http.HandleFunc("/", handler)
